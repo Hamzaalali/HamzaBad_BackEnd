@@ -57,12 +57,10 @@ public class AppUserController {
         if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             try {
 
+
                 String refresh_token = authorizationHeader.substring("Bearer ".length());
                 Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
-                JWTVerifier verifier = JWT.require(algorithm).build();
-                DecodedJWT decodedJWT = verifier.verify(refresh_token);
-                String username = decodedJWT.getSubject();
-                AppUser appUser = appUserService.getAppUser(username);
+                AppUser appUser =(AppUser) request.getAttribute("user");
                 String access_token = JWT.create()
                         .withSubject(appUser.getUsername())
                         .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))

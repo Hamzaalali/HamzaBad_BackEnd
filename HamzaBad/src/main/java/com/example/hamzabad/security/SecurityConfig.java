@@ -41,7 +41,7 @@ public class SecurityConfig  {
         authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
         authenticationManager = authenticationManagerBuilder.build();
 
-        http.csrf().disable().cors().disable().authorizeHttpRequests().antMatchers("/login","/user/register","/user/token/refresh").permitAll()
+        http.csrf().disable().cors().disable().authorizeHttpRequests().antMatchers("/user/login","/user/register","/user/token/refresh").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .authenticationManager(authenticationManager)
