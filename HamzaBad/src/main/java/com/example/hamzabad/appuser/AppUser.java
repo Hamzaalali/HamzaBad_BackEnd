@@ -1,5 +1,7 @@
 package com.example.hamzabad.appuser;
 
+import com.example.hamzabad.story.Story;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -21,4 +24,9 @@ public class AppUser {
     private String hash;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<Role> roles= new ArrayList<>();
+
+
+    @JsonIgnore
+    @OneToMany(targetEntity = AppUser.class)
+    private List<Story> stories;
 }
